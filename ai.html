@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillForge AI — Build Your Own ChatGPT</title>
+  <meta name="description" content="A free, progressive AI/LLM roadmap: from neural-network intuition to building a GPT from scratch and shipping LLM apps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-ai">
+  <!-- file:// playback warning (shown only when opened directly from disk) -->
+  <div id="fileBanner" class="file-banner hidden">
+    <span>
+      ⚠️ <b>YouTube playback needs a web server.</b> You opened this from a local file, so videos may show
+      <b>Error 153</b>. Run <code>start-server.bat</code> (or use VS Code “Live Server”, or GitHub Pages) and reopen at
+      <code>http://localhost:8000</code>.
+    </span>
+    <button id="fileBannerClose" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#" id="homeLink">
+        <span class="brand__mark">🤖</span>
+        <span class="brand__name">Skill<span class="brand__accent">Forge</span> · AI</span>
+      </a>
+      <div class="search">
+        <svg viewBox="0 0 24 24" class="search__icon" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="searchInput" type="text" placeholder="Search AI courses, models, topics…" autocomplete="off" />
+      </div>
+      <a class="btn btn--ghost nav-link" href="index.html">← Dev Roadmap</a>
+      <button id="continueBtn" class="btn btn--primary continue-btn">▶ Continue learning</button>
+    </div>
+  </header>
+
+  <!-- HOME / CATALOG VIEW -->
+  <main id="catalogView">
+    <section class="hero">
+      <div class="hero__inner">
+        <div class="hero__badge">100% free · YouTube-powered · Karpathy + 3Blue1Brown + freeCodeCamp</div>
+        <h1 class="hero__title" id="heroTitle"></h1>
+        <p class="hero__tagline" id="heroSubtitle"></p>
+        <div class="hero__progress">
+          <div class="hero__progress-head">
+            <span id="overallLabel">Your progress</span>
+            <span id="overallPct">0%</span>
+          </div>
+          <div class="progress">
+            <div class="progress__bar" id="overallBar"></div>
+          </div>
+          <div class="hero__stats" id="heroStats"></div>
+        </div>
+        <div class="hero__actions">
+          <button class="btn btn--primary btn--lg" id="startBtn">Start the AI roadmap →</button>
+          <button class="btn btn--ghost btn--lg" id="resetBtn">Reset progress</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="roadmap" id="roadmap"></section>
+
+    <footer class="footer">
+      <p>SkillForge AI is a free study guide. All videos are embedded from YouTube and belong to their respective creators. Built as a learning roadmap.</p>
+    </footer>
+  </main>
+
+  <!-- COURSE / PLAYER VIEW -->
+  <main id="courseView" class="hidden">
+    <div class="player-page">
+      <button class="back-link" id="backBtn">← Back to roadmap</button>
+      <div class="player-grid">
+        <div class="player-main">
+          <div class="video-wrap">
+            <iframe id="player" src="" title="Course video" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="player-info">
+            <div class="player-tags" id="courseTags"></div>
+            <h1 id="courseTitle"></h1>
+            <p class="player-channel" id="courseChannel"></p>
+            <p class="player-blurb" id="courseBlurb"></p>
+
+            <div class="player-actions">
+              <button class="btn btn--primary" id="completeBtn">Mark as complete</button>
+              <a class="btn btn--ghost" id="youtubeLink" target="_blank" rel="noopener">Open on YouTube ↗</a>
+            </div>
+
+            <h3 class="section-h">What you'll learn</h3>
+            <ul class="learn-list" id="courseLearn"></ul>
+
+            <h3 class="section-h">Free practice & resources</h3>
+            <div class="resource-list" id="courseResources"></div>
+          </div>
+        </div>
+
+        <aside class="player-side">
+          <div class="side-head">
+            <h3>AI curriculum</h3>
+            <span id="sideProgress"></span>
+          </div>
+          <div class="side-list" id="sideCurriculum"></div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="ai-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
