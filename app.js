@@ -207,6 +207,9 @@
 
     updateCompleteBtn(course);
     renderSideCurriculum(course);
+
+    // Let the engagement engine render this course's quiz.
+    document.dispatchEvent(new CustomEvent("sf:course", { detail: course }));
   }
 
   function updateCompleteBtn(course) {
@@ -215,10 +218,13 @@
     btn.textContent = d ? "✓ Completed — undo" : "Mark as complete";
     btn.classList.toggle("done", d);
     btn.onclick = function () {
-      setDone(course.id, !isDone(course.id));
+      var nowDone = !isDone(course.id);
+      setDone(course.id, nowDone);
       updateCompleteBtn(course);
       renderSideCurriculum(course);
       updateHeroStats();
+      // Only celebrate when transitioning into "complete".
+      if (nowDone) document.dispatchEvent(new CustomEvent("sf:complete", { detail: course }));
     };
   }
 
@@ -258,6 +264,7 @@
     showView("catalog");
     updateHeroStats();
     renderRoadmap($("#searchInput").value);
+    document.dispatchEvent(new CustomEvent("sf:home"));
   }
 
   function route() {
@@ -320,6 +327,7 @@
         saveDone(done);
         updateHeroStats();
         renderRoadmap($("#searchInput").value);
+        document.dispatchEvent(new CustomEvent("sf:reset"));
       }
     });
 

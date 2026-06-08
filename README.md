@@ -11,8 +11,15 @@ engineers to top packages is mapped into 5 ordered phases. All 12 courses are **
 ## ✨ Features
 
 - 🎬 **In-built YouTube player** for every course (no leaving the site)
-- 🧭 **Progressive 5-phase roadmap** — follow it top to bottom
-- ✅ **Progress tracking** — mark courses complete; progress is saved in your browser (localStorage)
+- 🧭 **Two progressive roadmaps** — a 7-phase **Dev** track and a 6-phase **AI/LLM** track
+- 🧠 **Interactive "Check your understanding" quizzes** after every lesson — instant feedback + explanations (active-recall, backed by a Harvard/PNAS study showing interpolated quizzes ~halve mind-wandering and lift retention)
+- 🎮 **Gamification / dopamine layer** (all client-side, localStorage):
+  - ⭐ **XP & levels** with celebratory level-up popups
+  - 🔥 **Daily streaks** with streak-freeze protection
+  - 🎯 **Daily XP goal** progress ring
+  - 🏆 **15 unlockable achievements/badges** with confetti on unlock
+  - 📊 A home **dashboard** (level ring, streak, goal, badges) + header XP/streak chips
+- ✅ **Progress tracking** — mark courses complete; saved in your browser (localStorage)
 - 🔎 **Search** across courses, skills, and topics
 - ▶ **"Continue learning"** jumps to your next unfinished course
 - 📚 **Per-course pages** with *What you'll learn* + curated **free** practice resources
@@ -28,21 +35,38 @@ engineers to top packages is mapped into 5 ordered phases. All 12 courses are **
 | **3 — Full-Stack Dev** | Build & ship real products | HTML/CSS · JavaScript · React · Node/Express |
 | **4 — Interview Mastery** | Convert skills to offers | NeetCode 150 (DSA patterns) · System Design |
 | **5 — Linux & CLI** | The OS everything runs on | Introduction to Linux (full course) |
-| **6 — Android Platform & Kernel** | Deep specialization, app → kernel | Kotlin · Android Masterclass · Android Internals · Binder IPC · Platform Debugging · AOSP board bring-up · Linux Kernel Programming · Device Drivers |
+| **6 — Android App Engineering** | Become a real Android dev | Kotlin · Coroutines · App components masterclass · Jetpack Compose · Hilt DI |
+| **7 — Android Platform, AOSP & Kernel** | Deep specialization, app → silicon | Android Internals · Binder IPC · SELinux · Platform Debugging · Perfetto tracing · AOSP board bring-up · Linux Kernel Programming · Device Drivers |
 
-### 🤖 Phase 6 — the in-depth Android track
+### 📱🤖 Phases 6–7 — the in-depth Android track
 
 A rare, top-to-bottom path for becoming an **Android platform / systems engineer**, taught largely
-by *Karim Yaghmour* (author of O'Reilly's *Embedded Android*), *BayLibre*, and the *Linux Foundation*:
+by *Philipp Lackner*, *Karim Yaghmour* (author of O'Reilly's *Embedded Android*), *BayLibre*, Google's
+*Android Developers*, and the *Linux Foundation*:
 
+**Phase 6 — App layer**
 1. **Kotlin** → language foundation
-2. **Android & Kotlin Masterclass** → the four app components (Activity/Service/Receiver/Provider)
-3. **Android Internals** → AOSP tree, build system, framework, system services
-4. **Binder / IPC deep dive** → how every component actually communicates
-5. **Platform Debugging & Development** → modify and debug the framework itself
-6. **AOSP on a developer board** → bootloader, Android Common Kernel, real board bring-up
-7. **Linux Kernel Programming** → kernel space, modules, the layer Android sits on
-8. **Linux Device Drivers** → where app features finally meet real silicon
+2. **Coroutines** → asynchronous/concurrent Android
+3. **App components masterclass** → Activity / Service / Receiver / Provider + lifecycle
+4. **Jetpack Compose** → the modern, declarative UI toolkit
+5. **Dependency Injection (Hilt)** → clean, testable architecture
+
+**Phase 7 — Platform & kernel**
+6. **Android Internals** → AOSP tree, build system, framework, system services
+7. **Binder / IPC deep dive** → how every component actually communicates
+8. **SELinux** → mandatory access control & `avc: denied` debugging
+9. **Platform Debugging & Development** → modify and debug the framework itself
+10. **Perfetto tracing** → diagnose jank, scheduling, and binder latency
+11. **AOSP on a developer board** → bootloader, Android Common Kernel, real board bring-up
+12. **Linux Kernel Programming** → kernel space, modules, the layer Android sits on
+13. **Linux Device Drivers** → where app features finally meet real silicon
+
+### 🧬 Companion AI/LLM roadmap (`ai.html`)
+
+A separate 6-phase track — neural-net intuition (3Blue1Brown) → deep learning & PyTorch →
+transformers/attention → **building your own GPT from scratch** (Andrej Karpathy) → the full
+training stack → and an applied **LLM-engineer** phase: prompt engineering, Hugging Face,
+**RAG**, **fine-tuning (LoRA/QLoRA)**, and generative image models.
 
 ## ▶️ Run it (and the "Error 153" fix)
 
@@ -72,10 +96,13 @@ python -m http.server 8000      # then open http://localhost:8000
 
 1. Create a new GitHub repo (e.g. `swe-roadmap`) and push these files to the **root**:
    ```
-   index.html
-   styles.css
-   app.js
-   data.js
+   index.html        # Dev roadmap page
+   ai.html           # AI/LLM roadmap page
+   styles.css        # shared styles (incl. gamification + quiz UI)
+   app.js            # shared app logic (catalog, player, routing)
+   engage.js         # shared engagement engine (XP, streaks, badges, quizzes)
+   data.js           # Dev roadmap content (+ quizzes)
+   ai-data.js        # AI roadmap content (+ quizzes)
    start-server.bat
    README.md
    ```
@@ -98,17 +125,27 @@ python -m http.server 8000      # then open http://localhost:8000
 
 ## 🛠️ Customize
 
-- **Add or reorder courses:** edit `data.js`. Each course needs `videoId`, `title`, `channel`,
-  `duration`, `level`, `blurb`, `learn[]`, and `resources[]`. New courses appear automatically.
+- **Add or reorder courses:** edit `data.js` (Dev) or `ai-data.js` (AI). Each course needs
+  `videoId`, `title`, `channel`, `duration`, `level`, `blurb`, `learn[]`, and `resources[]`.
+  New courses appear automatically.
+- **Add a quiz to a course:** give it a `quiz: [ { q, options: [...], answer: <index>, explain } ]`
+  array. The interactive "Check your understanding" section and XP rewards render automatically.
+- **Tune gamification:** XP amounts, the daily-goal target, level curve, and the badge list live
+  at the top of `engage.js`. All state is stored under one localStorage key (`skillforge_profile_v1`)
+  shared across both roadmaps.
 - **Change theme colors:** edit the CSS variables at the top of `styles.css` (`--accent`, `--bg`, …).
-- **Reset your progress:** use the **Reset progress** button on the home page.
+- **Reset your progress:** use the **Reset progress** button on the home page (also clears XP,
+  streak, and badges).
 
 ## 📄 Notes
 
 All videos are embedded from YouTube and remain the property of their respective creators
 (freeCodeCamp, Programming with Mosh, SuperSimpleDev, NeetCode, Bob Ziroll, William Fiset,
-Gaurav Sen, Harvard CS50, the Linux Foundation, BayLibre, and Karim Yaghmour / Opersys).
+Gaurav Sen, Harvard CS50, the Linux Foundation, BayLibre, Karim Yaghmour / Opersys,
+Philipp Lackner, Android Developers / Google, Chris Simmonds, Himanshu Gaur, 3Blue1Brown,
+Andrej Karpathy, AssemblyAI, and Computerphile).
 SkillForge is a free, non-commercial study guide that simply organizes them into a learning path.
+Every `videoId` was verified against its canonical upload via YouTube's oEmbed endpoint.
 
 If any single embed ever shows an error even over http(s), that specific creator has disabled
 off-site embedding — use the **“Open on YouTube ↗”** button on the course page to watch it there.
