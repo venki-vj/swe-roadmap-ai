@@ -103,7 +103,8 @@
       var matchingCourses = phase.courses.filter(function (c) {
         if (!q) return true;
         var hay = (c.title + " " + c.channel + " " + c.blurb + " " + c.level + " " +
-          (c.learn || []).join(" ")).toLowerCase();
+          (c.learn || []).join(" ") + " " +
+          (c.realWorld || []).map(function (r) { return r.sys + " " + r.text; }).join(" ")).toLowerCase();
         return hay.indexOf(q) !== -1;
       });
 
@@ -157,6 +158,9 @@
         '<div class="card__title">' + esc(course.title) + "</div>" +
         '<div class="card__channel">' + esc(course.channel) + "</div>" +
         '<div class="card__blurb">' + esc(course.blurb) + "</div>" +
+        (course.realWorld && course.realWorld.length
+          ? '<div class="card__rw">' + esc(course.realWorld.map(function (r) { return r.sys; }).join(" · ")) + "</div>"
+          : "") +
         '<div class="card__foot">' +
           '<span class="level level--' + course.level.split(" ")[0] + '">' + esc(course.level) + "</span>" +
           '<span class="card__status">' + (isDone(course.id) ? "✓ Completed" : "Not started") + "</span>" +
@@ -197,6 +201,9 @@
       '<span class="level level--' + course.level.split(" ")[0] + '">' + esc(course.level) + "</span>" +
       '<span class="phase__chip">' + esc(course._phase.title) + "</span>";
 
+    renderComplexity(course);
+    renderRealWorld(course);
+
     $("#courseLearn").innerHTML = (course.learn || [])
       .map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("");
 
@@ -210,6 +217,58 @@
 
     // Let the engagement engine render this course's quiz.
     document.dispatchEvent(new CustomEvent("sf:course", { detail: course }));
+  }
+
+  /* Optional Big-O complexity strip (DS track). Inserted right under the
+     blurb; created once, then reused/cleared on every course render so the
+     Dev/AI tracks (which omit `complexity`) show nothing. */
+  function renderComplexity(course) {
+    var anchor = $("#courseBlurb");
+    var strip = $("#courseComplexity");
+    if (!strip) {
+      strip = el("div", "complexity");
+      strip.id = "courseComplexity";
+      anchor.parentNode.insertBefore(strip, anchor.nextSibling);
+    }
+    var rows = course.complexity || [];
+    if (!rows.length) { strip.style.display = "none"; strip.innerHTML = ""; return; }
+    strip.style.display = "";
+    strip.innerHTML = rows.map(function (c) {
+      return '<span class="cx-pill"><b>' + esc(c.label) + '</b><code>' + esc(c.value) + "</code></span>";
+    }).join("");
+  }
+
+  /* Optional "Where it's used in production" section (DS track).
+     Anchored just before the "What you'll learn" heading. */
+  function renderRealWorld(course) {
+    var head = $("#rwHead");
+    var list = $("#courseRealWorld");
+    if (!list) {
+      var learnList = $("#courseLearn");
+      var learnHead = learnList ? learnList.previousElementSibling : null;
+      head = el("h3", "section-h", "⚙ Where it's used in production");
+      head.id = "rwHead";
+      list = el("div", "rw-list");
+      list.id = "courseRealWorld";
+      if (learnHead && learnHead.parentNode) {
+        learnHead.parentNode.insertBefore(head, learnHead);
+        learnHead.parentNode.insertBefore(list, learnHead);
+      } else {
+        // fallback: append into player-info
+        var info = $(".player-info") || document.body;
+        info.appendChild(head); info.appendChild(list);
+      }
+    }
+    var items = course.realWorld || [];
+    if (!items.length) { head.style.display = "none"; list.style.display = "none"; list.innerHTML = ""; return; }
+    head.style.display = "";
+    list.style.display = "";
+    list.innerHTML = items.map(function (r) {
+      return '<div class="rw-item">' +
+        '<span class="rw-item__sys">' + esc(r.sys) + "</span>" +
+        '<div class="rw-item__text">' + esc(r.text) + "</div>" +
+      "</div>";
+    }).join("");
   }
 
   function updateCompleteBtn(course) {

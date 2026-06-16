@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkillForge — Free Software Engineer Roadmap</title>
-  <meta name="description" content="A free, progressive roadmap from zero to job-ready software engineer, built from the best free YouTube courses." />
+  <title>SkillForge DS — Data Structures, Basic to Advanced</title>
+  <meta name="description" content="A free, progressive Data Structures roadmap — from arrays to LSM-trees and bloom filters — with the real-world ways high-tech systems (Google, Postgres, Redis, Kafka, RocksDB) use each one." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=3" />
 </head>
-<body>
+<body class="theme-ds">
   <!-- file:// playback warning (shown only when opened directly from disk) -->
   <div id="fileBanner" class="file-banner hidden">
     <span>
@@ -25,25 +25,24 @@
   <header class="topbar">
     <div class="topbar__inner">
       <a class="brand" href="#" id="homeLink">
-        <span class="brand__mark">⚡</span>
-        <span class="brand__name">Skill<span class="brand__accent">Forge</span></span>
+        <span class="brand__mark">🗂️</span>
+        <span class="brand__name">Skill<span class="brand__accent">Forge</span> · DS</span>
       </a>
       <div class="search">
         <svg viewBox="0 0 24 24" class="search__icon" aria-hidden="true"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input id="searchInput" type="text" placeholder="Search courses, skills, topics…" autocomplete="off" />
+        <input id="searchInput" type="text" placeholder="Search structures, operations, real-world uses…" autocomplete="off" />
       </div>
-      <a class="btn btn--ghost nav-link" href="ds.html">🗂️ Data Structures</a>
-      <a class="btn nav-link nav-link--ai" href="ai.html">✨ Learn AI</a>
+      <a class="btn btn--ghost nav-link" href="index.html">← Dev</a>
+      <a class="btn nav-link nav-link--ai" href="ai.html">✨ AI</a>
       <button id="continueBtn" class="btn btn--primary continue-btn">▶ Continue learning</button>
     </div>
   </header>
 
   <!-- HOME / CATALOG VIEW -->
   <main id="catalogView">
-    <!-- Hero -->
     <section class="hero">
       <div class="hero__inner">
-        <div class="hero__badge">100% free · YouTube-powered · No sign-up</div>
+        <div class="hero__badge">100% free · YouTube-powered · Every structure mapped to how real systems use it</div>
         <h1 class="hero__title" id="heroTitle"></h1>
         <p class="hero__tagline" id="heroSubtitle"></p>
         <div class="hero__progress">
@@ -57,17 +56,16 @@
           <div class="hero__stats" id="heroStats"></div>
         </div>
         <div class="hero__actions">
-          <button class="btn btn--primary btn--lg" id="startBtn">Start the roadmap →</button>
+          <button class="btn btn--primary btn--lg" id="startBtn">Start the DS roadmap →</button>
           <button class="btn btn--ghost btn--lg" id="resetBtn">Reset progress</button>
         </div>
       </div>
     </section>
 
-    <!-- Roadmap timeline -->
     <section class="roadmap" id="roadmap"></section>
 
     <footer class="footer">
-      <p>SkillForge is a free study guide. All videos are embedded from YouTube and belong to their respective creators. Built as a learning roadmap.</p>
+      <p>SkillForge DS is a free study guide. All videos are embedded from YouTube and belong to their respective creators. Built as a learning roadmap.</p>
     </footer>
   </main>
 
@@ -101,10 +99,9 @@
           </div>
         </div>
 
-        <!-- Curriculum sidebar -->
         <aside class="player-side">
           <div class="side-head">
-            <h3>Roadmap curriculum</h3>
+            <h3>DS curriculum</h3>
             <span id="sideProgress"></span>
           </div>
           <div class="side-list" id="sideCurriculum"></div>
@@ -113,7 +110,7 @@
     </div>
   </main>
 
-  <script src="data.js?v=3"></script>
+  <script src="ds-data.js?v=3"></script>
   <script src="engage.js?v=3"></script>
   <script src="app.js?v=3"></script>
 </body>

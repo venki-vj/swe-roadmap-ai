@@ -61,6 +61,34 @@ by *Philipp Lackner*, *Karim Yaghmour* (author of O'Reilly's *Embedded Android*)
 12. **Linux Kernel Programming** → kernel space, modules, the layer Android sits on
 13. **Linux Device Drivers** → where app features finally meet real silicon
 
+### 🗂️ Companion Data Structures roadmap (`ds.html`)
+
+A dedicated, progressive **data-structures** track — *basic → advanced* — where every
+structure is taught by the most-loved free video on the topic **and** mapped to exactly how
+real production systems use it. Five phases, 22 topics:
+
+| Phase | Focus | Structures |
+|------|-------|-----------|
+| **1 — Foundations & Linear** | Cost + the core four | Big-O · Arrays/Strings · Linked Lists · Stacks · Queues |
+| **2 — Hashing, Trees & Heaps** | Fast lookup & hierarchy | Hash tables/maps/sets · Binary trees · BSTs · Heaps/priority queues · Tries |
+| **3 — Balanced Trees** | Guaranteed O(log n) | AVL · Red-Black · B/B+ trees · Skip lists |
+| **4 — Graphs & Range Queries** | Relationships & intervals | Graph theory · Union-Find · Segment trees · Fenwick trees |
+| **5 — Data Structures at Scale** | Production internals | Bloom filters · LSM-trees · Merkle trees/blockchains · Capstone (Fiset full course) |
+
+Two DS-only fields drive a signature UI on this track (rendered by the shared `app.js`):
+
+- **`complexity: [{ label, value }]`** → a Big-O strip shown right under the blurb.
+- **`realWorld: [{ sys, text }]`** → a *"⚙ Where it's used in production"* section, e.g. PostgreSQL
+  B-tree indexes, Redis sorted-set skip lists, Cassandra SSTable Bloom filters, RocksDB LSM
+  compaction, the Linux kernel's red-black trees, and Git/Bitcoin Merkle trees. The systems also
+  appear as a hint on each home-page card and are included in search.
+
+Real-world claims were grounded in a deep, multi-source, fact-checked research pass (primary
+sources: PostgreSQL, Apache Cassandra, RocksDB, Redis docs, cp-algorithms, MIT OCW). Taught by
+*William Fiset* (Google engineer / freeCodeCamp), *HackerRank* (Gayle Laakmann McDowell),
+*mycodeschool*, *Abdul Bari*, *Michael Sambol*, *Spanning Tree*, *Tushar Roy*, *ByteByteGo*,
+*Jenny's Lectures*, and *3Blue1Brown*. Every `videoId` is verified via YouTube's oEmbed endpoint.
+
 ### 🧬 Companion AI/LLM roadmap (`ai.html`)
 
 A separate 6-phase track — neural-net intuition (3Blue1Brown) → deep learning & PyTorch →
@@ -98,11 +126,13 @@ python -m http.server 8000      # then open http://localhost:8000
    ```
    index.html        # Dev roadmap page
    ai.html           # AI/LLM roadmap page
+   ds.html           # Data Structures roadmap page
    styles.css        # shared styles (incl. gamification + quiz UI)
-   app.js            # shared app logic (catalog, player, routing)
+   app.js            # shared app logic (catalog, player, routing, DS complexity/real-world)
    engage.js         # shared engagement engine (XP, streaks, badges, quizzes)
    data.js           # Dev roadmap content (+ quizzes)
    ai-data.js        # AI roadmap content (+ quizzes)
+   ds-data.js        # Data Structures content (+ complexity, real-world, quizzes)
    start-server.bat
    README.md
    ```
