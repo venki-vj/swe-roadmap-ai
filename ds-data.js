@@ -1,14 +1,15 @@
 /*
  * SkillForge DS — Data Structures, Basic → Advanced
  * ------------------------------------------------------------
- * 100% FREE, highly-regarded YouTube videos for learning data
- * structures, ordered basic -> advanced. Taught by William Fiset
- * (Google engineer / freeCodeCamp), HackerRank (Gayle Laakmann
- * McDowell), mycodeschool, Abdul Bari, Michael Sambol, Spanning
- * Tree, Tushar Roy, ByteByteGo, Jenny's Lectures and 3Blue1Brown.
- * Every videoId is verified against the canonical upload (checked
- * via YouTube's oEmbed endpoint). Attached to window.ROADMAP so the
- * shared app.js / styles.css render this page.
+ * 100% FREE, modern, highly-regarded YouTube videos for learning
+ * data structures, ordered basic -> advanced. The foundations and
+ * core structures use Greg Hogg's 2024 "DSA Course in Python"
+ * (a clean, current, end-to-end course); advanced/at-scale topics
+ * use Michael Sambol, Spanning Tree, William Fiset (freeCodeCamp),
+ * ByteByteGo and 3Blue1Brown. Every videoId is verified against
+ * the canonical upload (checked via YouTube's oEmbed endpoint).
+ * Attached to window.ROADMAP so the shared app.js / styles.css
+ * render this page.
  *
  * DS-track-only fields rendered by app.js:
  *   complexity: [ { label, value } ]   -> Big-O strip under the blurb
@@ -25,28 +26,28 @@ window.ROADMAP = {
     title: "SkillForge DS",
     tagline: "Data structures, basic → advanced — and exactly how real systems use each one.",
     subtitle:
-      "Every structure from arrays to LSM-trees and bloom filters, taught by the most-loved free video on the topic — then mapped to how production systems (PostgreSQL, Redis, RocksDB, Cassandra, the Linux kernel, Git, blockchains) actually use it. See the Big-O up front, learn where it shows up at scale, and quiz yourself as you go.",
+      "A modern path from Big-O and recursion to LSM-trees and bloom filters — taught by Greg Hogg's current DSA course, Michael Sambol, William Fiset, ByteByteGo and 3Blue1Brown. Every structure is mapped to how production systems (PostgreSQL, Redis, RocksDB, Cassandra, the Linux kernel, Git, blockchains) actually use it. See the Big-O up front, learn where it shows up at scale, and quiz yourself as you go.",
   },
 
   phases: [
     /* ===================================================================
-       PHASE 1 — Foundations & linear structures
+       PHASE 1 — Foundations (the mental models)
        =================================================================== */
     {
       id: "ds1",
-      title: "Phase 1 — Foundations & Linear Structures",
-      subtitle: "The mental model for cost (Big-O) and the four structures every program is built on.",
+      title: "Phase 1 — Foundations",
+      subtitle: "The two mental models everything else builds on: how to measure cost (Big-O) and how to think recursively.",
       icon: "🧱",
       courses: [
         {
           id: "bigo",
-          videoId: "0IAPZzGSbME",
-          title: "Big-O & Algorithm Analysis",
-          channel: "Abdul Bari",
-          duration: "~10 min",
+          videoId: "aWKEBEg55ps",
+          title: "Big-O & Complexity Analysis",
+          channel: "Greg Hogg",
+          duration: "~20 min",
           level: "Beginner",
           blurb:
-            "Before any structure, learn the language of cost. Big-O describes how time and memory grow as input grows — the single lens you'll use to choose between every data structure that follows.",
+            "Start here. Big-O is the language for how an algorithm's time and memory grow with input size — the single lens you'll use to choose between every data structure that follows. This lesson builds the intuition with concrete code, not just symbols.",
           complexity: [
             { label: "Constant", value: "O(1)" },
             { label: "Logarithmic", value: "O(log n)" },
@@ -55,17 +56,17 @@ window.ROADMAP = {
           ],
           realWorld: [
             { sys: "Every system", text: "Big-O is how engineers reason about scale: an O(n²) loop that's fine on 100 rows melts down on 10 million. Picking O(log n) over O(n) lookups is the difference between a fast database and a slow one." },
-            { sys: "Interviews", text: "Time/space complexity is the vocabulary every FAANG-style interview is conducted in — you justify each choice in Big-O." },
+            { sys: "Interviews", text: "Time/space complexity is the vocabulary every FAANG-style interview is conducted in — you justify each design choice in Big-O." },
           ],
           learn: [
-            "What Big-O, Big-Θ and Big-Ω actually measure",
+            "What Big-O measures (worst-case growth) vs. Θ and Ω",
             "Reading growth rates: O(1), O(log n), O(n), O(n log n), O(n²)",
             "Why constants and lower-order terms are dropped",
             "Time vs. space complexity trade-offs",
           ],
           resources: [
+            { label: "NeetCode — Big-O for coding interviews", url: "https://www.youtube.com/watch?v=BgLTDT03QtU" },
             { label: "Big-O Cheat Sheet", url: "https://www.bigocheatsheet.com/" },
-            { label: "VisuAlgo — visualize structures", url: "https://visualgo.net/en" },
           ],
           quiz: [
             {
@@ -89,14 +90,77 @@ window.ROADMAP = {
           ],
         },
         {
-          id: "arrays",
-          videoId: "AT14lCXuMKI",
-          title: "Arrays & Strings",
-          channel: "Jenny's Lectures CS IT",
-          duration: "~20 min",
+          id: "recursion",
+          videoId: "TGT79h7e7tE",
+          title: "Recursion & the Call Stack",
+          channel: "Greg Hogg",
+          duration: "~25 min",
           level: "Beginner",
           blurb:
-            "A contiguous block of memory with O(1) indexed access — the most fundamental structure there is. Strings are just arrays of characters, and dynamic arrays (vector / ArrayList / Python list) grow by doubling.",
+            "A function that calls itself, shrinking the problem until a base case stops it. Recursion is how you'll traverse trees and graphs, write divide-and-conquer sorts, and express dynamic programming — so it's worth getting crisp early.",
+          complexity: [
+            { label: "Base case", value: "required" },
+            { label: "Call-stack depth", value: "O(d)" },
+            { label: "Extra space", value: "O(d) stack" },
+            { label: "Too deep →", value: "stack overflow" },
+          ],
+          realWorld: [
+            { sys: "Tree & graph traversal", text: "DFS, file-system walks, JSON/DOM traversal and recursive-descent parsers are all naturally recursive — each call handles one node and recurses into its children." },
+            { sys: "Divide & conquer", text: "Merge sort, quicksort and binary search are recursion at their core: split the problem, solve the halves, combine." },
+            { sys: "Dynamic programming", text: "Top-down DP is just recursion + memoization — cache subproblem results to turn exponential recursion into polynomial time." },
+          ],
+          learn: [
+            "Base case vs. recursive case — and why a missing base case loops forever",
+            "How the call stack stores each frame (and causes stack overflow)",
+            "Converting between recursion and iteration",
+            "Memoization: caching recursive results",
+          ],
+          resources: [
+            { label: "VisuAlgo — Recursion / recursion tree", url: "https://visualgo.net/en/recursion" },
+            { label: "Reducible — recursion intuition", url: "https://www.youtube.com/c/Reducible" },
+          ],
+          quiz: [
+            {
+              q: "Every correct recursive function must have…",
+              options: ["A loop", "A base case that stops the recursion", "Two parameters", "A global variable"],
+              answer: 1,
+              explain: "Without a base case the function recurses forever and overflows the call stack.",
+            },
+            {
+              q: "What causes a 'stack overflow' in recursion?",
+              options: ["Too little RAM for data", "Recursion that goes too deep, exhausting the call stack", "A syntax error", "Using too many variables"],
+              answer: 1,
+              explain: "Each call pushes a frame; if recursion never reaches a base case (or is too deep), the call stack runs out of space.",
+            },
+            {
+              q: "Which technique pairs with recursion to make top-down DP efficient?",
+              options: ["Hashing the input file", "Memoization (caching subproblem results)", "Sorting first", "Encryption"],
+              answer: 1,
+              explain: "Memoization stores already-computed subproblems so they're not recomputed — turning exponential recursion into polynomial time.",
+            },
+          ],
+        },
+      ],
+    },
+
+    /* ===================================================================
+       PHASE 2 — Linear structures
+       =================================================================== */
+    {
+      id: "ds2",
+      title: "Phase 2 — Linear Structures",
+      subtitle: "The structures every program is built on: arrays, linked lists, stacks and queues.",
+      icon: "📦",
+      courses: [
+        {
+          id: "arrays",
+          videoId: "TQMvBTKn2p0",
+          title: "Arrays & Strings",
+          channel: "Greg Hogg",
+          duration: "~30 min",
+          level: "Beginner",
+          blurb:
+            "A contiguous block of memory with O(1) indexed access — the most fundamental structure there is. Strings are just arrays of characters, and dynamic arrays (list / vector / ArrayList) grow by doubling.",
           complexity: [
             { label: "Access by index", value: "O(1)" },
             { label: "Search", value: "O(n)" },
@@ -141,10 +205,10 @@ window.ROADMAP = {
         },
         {
           id: "linkedlist",
-          videoId: "NobHlGUjV3g",
+          videoId: "dqLHTK7RuIo",
           title: "Linked Lists",
-          channel: "mycodeschool",
-          duration: "~8 min",
+          channel: "Greg Hogg",
+          duration: "~30 min",
           level: "Beginner",
           blurb:
             "Nodes scattered in memory, each pointing to the next. You trade O(1) random access for O(1) insert/delete once you hold a node — the structure behind LRU caches and kernel object lists.",
@@ -167,7 +231,7 @@ window.ROADMAP = {
           ],
           resources: [
             { label: "VisuAlgo — Linked List", url: "https://visualgo.net/en/list" },
-            { label: "HackerRank — Linked Lists video", url: "https://www.youtube.com/watch?v=njTh_OwMljA" },
+            { label: "HackerRank — Linked Lists (Gayle Laakmann McDowell)", url: "https://www.youtube.com/watch?v=njTh_OwMljA" },
           ],
           quiz: [
             {
@@ -191,35 +255,35 @@ window.ROADMAP = {
           ],
         },
         {
-          id: "stacks",
-          videoId: "F1F2imiOJfk",
-          title: "Stacks (LIFO)",
-          channel: "mycodeschool",
-          duration: "~9 min",
+          id: "stacksqueues",
+          videoId: "vOx3vY1w4tM",
+          title: "Stacks & Queues",
+          channel: "Greg Hogg",
+          duration: "~22 min",
           level: "Beginner",
           blurb:
-            "Last-In-First-Out: push and pop at one end, both O(1). It's the structure that literally runs your code — the function call stack — and powers undo, parsing, and depth-first search.",
+            "Two restricted-access structures. A stack is Last-In-First-Out (push/pop one end); a queue is First-In-First-Out (enqueue back, dequeue front). All core operations are O(1) — and together they run your code and decouple your services.",
           complexity: [
-            { label: "Push", value: "O(1)" },
-            { label: "Pop", value: "O(1)" },
+            { label: "Push / Pop (stack)", value: "O(1)" },
+            { label: "Enqueue / Dequeue (queue)", value: "O(1)" },
             { label: "Peek", value: "O(1)" },
             { label: "Search", value: "O(n)" },
           ],
           realWorld: [
-            { sys: "Language runtimes", text: "The call stack stores each function's local frame; recursion is just pushing frames. 'Stack overflow' is this structure literally running out of room." },
-            { sys: "Editors & browsers", text: "Undo/redo and browser back/forward are two stacks. Every Ctrl+Z pops the last action." },
-            { sys: "Compilers", text: "Expression evaluation, bracket matching, and syntax parsing use stacks (e.g. the shunting-yard algorithm)." },
-            { sys: "DFS & backtracking", text: "Depth-first search and backtracking (mazes, sudoku, regex engines) use an explicit or call stack to remember where to resume." },
+            { sys: "Call stack (LIFO)", text: "The function call stack stores each frame; recursion is pushing frames. Undo/redo and browser back/forward are stacks too — every Ctrl+Z pops the last action." },
+            { sys: "Compilers (LIFO)", text: "Expression evaluation, bracket matching and syntax parsing use stacks (e.g. the shunting-yard algorithm); DFS uses an explicit or call stack." },
+            { sys: "Kafka / queues (FIFO)", text: "Message queues buffer work so producers and consumers run at their own pace — the backbone of event-driven and microservice architectures." },
+            { sys: "Schedulers & BFS (FIFO)", text: "OS run queues hold ready threads; breadth-first search uses a queue to explore level by level (shortest paths, web crawling)." },
           ],
           learn: [
-            "LIFO semantics: push / pop / peek, all O(1)",
-            "Array-backed vs. linked-list-backed stacks",
+            "LIFO vs. FIFO and the O(1) operations of each",
+            "Array-backed vs. linked-list-backed implementations",
             "The call stack and how recursion maps onto it",
-            "Classic uses: balanced parentheses, expression evaluation, DFS",
+            "Variants: deque (double-ended), circular buffer, priority queue",
           ],
           resources: [
-            { label: "VisuAlgo — Stack/Queue", url: "https://visualgo.net/en/list" },
-            { label: "HackerRank — Stacks & Queues video", url: "https://www.youtube.com/watch?v=wjI1WNcIntg" },
+            { label: "VisuAlgo — Stack & Queue", url: "https://visualgo.net/en/list" },
+            { label: "Kafka — topics & partitions (queues at scale)", url: "https://kafka.apache.org/intro" },
           ],
           quiz: [
             {
@@ -229,68 +293,16 @@ window.ROADMAP = {
               explain: "Stacks are Last-In-First-Out — the most recently pushed item is popped first.",
             },
             {
+              q: "Which traversal uses a queue?",
+              options: ["Depth-first search (DFS)", "Breadth-first search (BFS)", "Binary search", "Quicksort"],
+              answer: 1,
+              explain: "BFS visits nodes level by level, using a FIFO queue to hold the frontier. DFS uses a stack.",
+            },
+            {
               q: "Which real mechanism is literally a stack?",
               options: ["A database index", "The function call stack", "A network packet", "A hash table"],
               answer: 1,
               explain: "Each function call pushes a frame; returning pops it. Too-deep recursion causes a stack overflow.",
-            },
-            {
-              q: "Checking balanced parentheses '(()())' is naturally done with a…",
-              options: ["Queue", "Stack", "Heap", "Graph"],
-              answer: 1,
-              explain: "Push each '(' and pop on each ')'; if it's ever empty early or non-empty at the end, it's unbalanced.",
-            },
-          ],
-        },
-        {
-          id: "queues",
-          videoId: "XuCbpw6Bj1U",
-          title: "Queues (FIFO)",
-          channel: "mycodeschool",
-          duration: "~8 min",
-          level: "Beginner",
-          blurb:
-            "First-In-First-Out: enqueue at the back, dequeue at the front, both O(1). Queues decouple producers from consumers — the idea behind every message broker and OS scheduler.",
-          complexity: [
-            { label: "Enqueue", value: "O(1)" },
-            { label: "Dequeue", value: "O(1)" },
-            { label: "Peek front", value: "O(1)" },
-            { label: "Search", value: "O(n)" },
-          ],
-          realWorld: [
-            { sys: "Kafka / RabbitMQ", text: "Message queues buffer work so producers and consumers run at their own pace — the backbone of event-driven and microservice architectures." },
-            { sys: "OS schedulers", text: "Operating systems keep run queues of ready processes/threads; the scheduler dequeues the next one to run." },
-            { sys: "BFS", text: "Breadth-first search uses a queue to visit nodes level by level — shortest paths in unweighted graphs, web crawling." },
-            { sys: "Buffers & spoolers", text: "Print spoolers, request queues behind load balancers, and ring buffers in networking all preserve arrival order." },
-          ],
-          learn: [
-            "FIFO semantics: enqueue / dequeue, both O(1)",
-            "Circular buffers (ring buffers) for fixed-size queues",
-            "Deques (double-ended queues) and priority queues as variants",
-            "Producer/consumer decoupling and back-pressure",
-          ],
-          resources: [
-            { label: "VisuAlgo — Queue", url: "https://visualgo.net/en/list" },
-            { label: "Kafka — intro to topics & partitions", url: "https://kafka.apache.org/intro" },
-          ],
-          quiz: [
-            {
-              q: "A queue follows which order?",
-              options: ["LIFO", "FIFO (first in, first out)", "Sorted", "Random"],
-              answer: 1,
-              explain: "Queues are First-In-First-Out — the earliest enqueued item is dequeued first.",
-            },
-            {
-              q: "Which traversal uses a queue?",
-              options: ["Depth-first search (DFS)", "Breadth-first search (BFS)", "Binary search", "Quicksort"],
-              answer: 1,
-              explain: "BFS visits nodes level by level, using a queue to hold the frontier.",
-            },
-            {
-              q: "Why do systems like Kafka put a queue between services?",
-              options: ["To sort messages alphabetically", "To decouple producers and consumers so each runs at its own rate", "To encrypt data", "To reduce storage"],
-              answer: 1,
-              explain: "A buffer absorbs bursts and lets consumers process at their own pace — resilience and back-pressure.",
             },
           ],
         },
@@ -298,20 +310,134 @@ window.ROADMAP = {
     },
 
     /* ===================================================================
-       PHASE 2 — Hashing, trees & heaps
+       PHASE 3 — Searching & sorting (algorithms over structures)
        =================================================================== */
     {
-      id: "ds2",
-      title: "Phase 2 — Hashing, Trees & Heaps",
-      subtitle: "The workhorses of fast lookup and hierarchy: hash maps, binary trees, BSTs, heaps and tries.",
+      id: "ds3",
+      title: "Phase 3 — Searching & Sorting",
+      subtitle: "The two algorithm families every structure depends on — halving sorted data (binary search) and ordering it (sorting).",
+      icon: "🔍",
+      courses: [
+        {
+          id: "binarysearch",
+          videoId: "9nmrkG6QtpQ",
+          title: "Binary Search",
+          channel: "Greg Hogg",
+          duration: "~25 min",
+          level: "Beginner",
+          blurb:
+            "Halve a sorted range each step to find a target in O(log n). Simple to state, easy to get wrong — and far more powerful than it looks once you learn 'binary search on the answer'.",
+          complexity: [
+            { label: "Search", value: "O(log n)" },
+            { label: "Precondition", value: "sorted" },
+            { label: "Space (iterative)", value: "O(1)" },
+            { label: "Variants", value: "lower/upper bound" },
+          ],
+          realWorld: [
+            { sys: "Databases", text: "A B-tree index lookup is essentially a multi-way binary search over sorted keys — how PostgreSQL/MySQL find a row among billions in a handful of steps." },
+            { sys: "Git bisect", text: "`git bisect` binary-searches your commit history to find the exact commit that introduced a bug — O(log n) builds instead of checking every commit." },
+            { sys: "Search the answer", text: "Condition-based binary search solves optimization problems (minimum capacity, rate limits, Koko-eats-bananas) by searching over the answer space, not an array." },
+          ],
+          learn: [
+            "Halving a sorted range; why it's O(log n)",
+            "The classic off-by-one and mid-overflow pitfalls",
+            "lower_bound / upper_bound (first/last position)",
+            "Binary search on a monotonic answer space",
+          ],
+          resources: [
+            { label: "VisuAlgo — Binary Search", url: "https://visualgo.net/en/bst" },
+            { label: "NeetCode — Binary Search playlist", url: "https://www.youtube.com/playlist?list=PLot-Xpze53leNZQd0iINpD-MAhMOMzWvO" },
+          ],
+          quiz: [
+            {
+              q: "Binary search requires the data to be…",
+              options: ["Sorted", "Hashed", "Empty", "Stored in a stack"],
+              answer: 0,
+              explain: "Each step discards half the range based on order — that only works if the data is sorted.",
+            },
+            {
+              q: "Binary search runs in…",
+              options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+              answer: 1,
+              explain: "Halving the search space each comparison gives logarithmic time.",
+            },
+            {
+              q: "`git bisect` is an example of…",
+              options: ["Hashing commits", "Binary search over commit history to find a bad commit", "Sorting commits", "A linked list"],
+              answer: 1,
+              explain: "It repeatedly tests the midpoint commit, halving the suspect range each time — O(log n) builds.",
+            },
+          ],
+        },
+        {
+          id: "sorting",
+          videoId: "gcRUIO-8r3U",
+          title: "Sorting Algorithms",
+          channel: "Greg Hogg",
+          duration: "~40 min",
+          level: "Intermediate",
+          blurb:
+            "From O(n²) bubble/insertion/selection to O(n log n) merge/quick/heap and O(n+k) counting sort. You'll rarely write one in production, but understanding them explains your language's built-in sort and unlocks binary search.",
+          complexity: [
+            { label: "Best comparison sort", value: "O(n log n)" },
+            { label: "Quicksort (avg / worst)", value: "O(n log n) / O(n²)" },
+            { label: "Merge sort (stable)", value: "O(n log n)" },
+            { label: "Counting / radix", value: "O(n + k)" },
+          ],
+          realWorld: [
+            { sys: "Language runtimes", text: "Python's `sorted()` uses Timsort; Java uses Timsort (objects) and dual-pivot quicksort (primitives); V8 uses Timsort. Every `.sort()` you call is one of these." },
+            { sys: "Databases", text: "`ORDER BY`, merge joins, and external merge-sort (sorting data far larger than RAM by sorting runs on disk and merging) are core query-engine operations." },
+            { sys: "Pre-processing", text: "Sorting first enables binary search, deduplication, and a huge family of greedy and interval/sweep-line algorithms." },
+          ],
+          learn: [
+            "O(n²) sorts (bubble, insertion, selection) and when insertion still wins",
+            "O(n log n) sorts: merge (stable), quick (in-place), heap",
+            "Stability and in-place vs. extra-memory trade-offs",
+            "Non-comparison sorts: counting & radix in O(n + k)",
+          ],
+          resources: [
+            { label: "Sorting algorithms visualized (Timo Bingmann)", url: "https://www.youtube.com/watch?v=kPRA0W1kECg" },
+            { label: "Big-O Cheat Sheet — sorting", url: "https://www.bigocheatsheet.com/" },
+          ],
+          quiz: [
+            {
+              q: "The best worst-case time for a COMPARISON sort is…",
+              options: ["O(n)", "O(n log n)", "O(log n)", "O(n²)"],
+              answer: 1,
+              explain: "Comparison sorts are bounded below by O(n log n); only non-comparison sorts (counting/radix) can beat it under conditions.",
+            },
+            {
+              q: "Which sort is stable and guarantees O(n log n)?",
+              options: ["Quicksort", "Merge sort", "Bubble sort", "Selection sort"],
+              answer: 1,
+              explain: "Merge sort is stable and always O(n log n) (at the cost of O(n) extra space). Quicksort is O(n²) worst case.",
+            },
+            {
+              q: "Counting sort can run in O(n + k) because it…",
+              options: ["Compares every pair", "Counts occurrences of values in a known small range instead of comparing", "Uses recursion", "Sorts in place"],
+              answer: 1,
+              explain: "It's a non-comparison sort: it tallies counts over a value range k, sidestepping the O(n log n) comparison bound.",
+            },
+          ],
+        },
+      ],
+    },
+
+    /* ===================================================================
+       PHASE 4 — Hashing, trees & heaps
+       =================================================================== */
+    {
+      id: "ds4",
+      title: "Phase 4 — Hashing, Trees & Heaps",
+      subtitle: "The workhorses of fast lookup and hierarchy: hash maps, binary trees & BSTs, heaps and tries.",
       icon: "🌳",
       courses: [
         {
           id: "hashtables",
-          videoId: "shs0KM3wKv8",
+          videoId: "iZyxNEBpqFY",
           title: "Hash Tables, Maps & Sets",
-          channel: "HackerRank · Gayle Laakmann McDowell",
-          duration: "~10 min",
+          channel: "Greg Hogg",
+          duration: "~25 min",
           level: "Intermediate",
           blurb:
             "Hash a key to a bucket and get average O(1) insert, lookup and delete. Hash maps are the most-used non-trivial structure in software — and a set is just a map that stores only keys.",
@@ -360,33 +486,33 @@ window.ROADMAP = {
         },
         {
           id: "binarytrees",
-          videoId: "H5JubkIy_p8",
-          title: "Trees & Binary Trees",
-          channel: "mycodeschool",
-          duration: "~11 min",
+          videoId: "EPwWrs8OtfI",
+          title: "Binary Trees & BSTs",
+          channel: "Greg Hogg",
+          duration: "~35 min",
           level: "Intermediate",
           blurb:
-            "Hierarchy made explicit: a root, children, and recursive subtrees. Binary trees (≤2 children) are the foundation for search trees, heaps, parsers, and the DOM you render every day.",
+            "Hierarchy made explicit: a root, children, and recursive subtrees. Add the ordering rule left < node < right and you get a Binary Search Tree — O(log n) search/insert/delete when balanced, and in-order traversal that yields sorted data.",
           complexity: [
+            { label: "Search (balanced BST)", value: "O(log n)" },
+            { label: "Insert / delete (balanced)", value: "O(log n)" },
+            { label: "Worst case (skewed)", value: "O(n)" },
             { label: "Traversal", value: "O(n)" },
-            { label: "Height (balanced)", value: "O(log n)" },
-            { label: "Height (skewed)", value: "O(n)" },
-            { label: "Space", value: "O(n)" },
           ],
           realWorld: [
-            { sys: "Browsers", text: "The DOM is a tree of nodes; rendering, CSS selectors and React's virtual DOM all walk and diff tree structures." },
-            { sys: "Compilers", text: "Source code is parsed into an Abstract Syntax Tree (AST); every compiler, linter, and formatter operates on it." },
-            { sys: "File systems & org charts", text: "Directories, XML/JSON documents, and hierarchies are naturally trees — parent/child with recursive traversal." },
+            { sys: "Browsers & compilers", text: "The DOM is a tree of nodes; source code parses into an Abstract Syntax Tree (AST). Every renderer, linter and formatter walks these trees." },
+            { sys: "Ordered maps", text: "C++ std::map/std::set and Java TreeMap/TreeSet are balanced BSTs — used when you need keys kept in sorted order with fast range scans." },
+            { sys: "Databases", text: "Range queries ('all orders between two dates') rely on ordered tree structures; the on-disk version is the B-tree you'll meet in Phase 5." },
           ],
           learn: [
             "Tree vocabulary: root, parent, child, leaf, height, depth",
-            "Binary trees and the three DFS traversals (pre/in/post-order)",
-            "Level-order (BFS) traversal with a queue",
-            "Recursion as the natural way to process trees",
+            "DFS traversals (pre/in/post-order) and level-order (BFS)",
+            "The BST ordering invariant; in-order = sorted",
+            "Why an unbalanced BST degrades to a linked list — O(n)",
           ],
           resources: [
-            { label: "VisuAlgo — Binary Tree", url: "https://visualgo.net/en/bst" },
-            { label: "HackerRank — Trees video", url: "https://www.youtube.com/watch?v=oSWTXtMglKE" },
+            { label: "VisuAlgo — Binary Search Tree", url: "https://visualgo.net/en/bst" },
+            { label: "HackerRank — Trees (Gayle Laakmann McDowell)", url: "https://www.youtube.com/watch?v=oSWTXtMglKE" },
           ],
           quiz: [
             {
@@ -402,70 +528,19 @@ window.ROADMAP = {
               explain: "Left → node → right visits keys in ascending sorted order — a defining BST property.",
             },
             {
-              q: "A web page's DOM is best modeled as a…",
-              options: ["Hash table", "Tree", "Stack", "Queue"],
-              answer: 1,
-              explain: "HTML nests elements as parent/child nodes — a tree the browser traverses to render.",
-            },
-          ],
-        },
-        {
-          id: "bst",
-          videoId: "pYT9F8_LFTM",
-          title: "Binary Search Trees (BST)",
-          channel: "mycodeschool",
-          duration: "~7 min",
-          level: "Intermediate",
-          blurb:
-            "A binary tree with order: left < node < right. That invariant gives O(log n) search/insert/delete when balanced — and motivates the self-balancing trees in the next phase.",
-          complexity: [
-            { label: "Search (balanced)", value: "O(log n)" },
-            { label: "Insert / delete (balanced)", value: "O(log n)" },
-            { label: "Worst case (skewed)", value: "O(n)" },
-            { label: "In-order = sorted", value: "O(n)" },
-          ],
-          realWorld: [
-            { sys: "Ordered maps", text: "C++ std::map/std::set, Java TreeMap/TreeSet are balanced BSTs — used whenever you need keys kept in sorted order with fast range scans." },
-            { sys: "Databases", text: "Range queries ('all orders between two dates') rely on ordered tree structures; the on-disk version is the B-tree you'll meet in Phase 3." },
-            { sys: "Schedulers", text: "Keeping events/tasks ordered by key (time, priority) for fast 'next' and range lookups is a BST/ordered-map job." },
-          ],
-          learn: [
-            "The BST ordering invariant and why it enables binary search",
-            "Insert, search, delete (including the two-children delete case)",
-            "Why an unbalanced BST degrades to a linked list — O(n)",
-            "Successor/predecessor and range queries",
-          ],
-          resources: [
-            { label: "VisuAlgo — BST / AVL", url: "https://visualgo.net/en/bst" },
-            { label: "Big-O Cheat Sheet", url: "https://www.bigocheatsheet.com/" },
-          ],
-          quiz: [
-            {
-              q: "Binary search (and a balanced BST) requires/maintains data that is…",
-              options: ["Sorted / ordered", "Hashed", "Empty", "Stored in a stack"],
-              answer: 0,
-              explain: "Ordering lets you discard half the remaining keys each step → O(log n).",
-            },
-            {
               q: "Why can a BST degrade to O(n)?",
               options: ["Too many duplicate values", "If inserts arrive sorted, it becomes a skewed chain (a linked list)", "Hash collisions", "Integer overflow"],
               answer: 1,
-              explain: "Sorted inserts make every node a right child — height becomes n. Self-balancing trees fix this.",
-            },
-            {
-              q: "Search in a balanced BST of n keys is…",
-              options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
-              answer: 1,
-              explain: "Each comparison halves the search space, giving logarithmic depth when balanced.",
+              explain: "Sorted inserts make every node a right child — height becomes n. Self-balancing trees (next phase) fix this.",
             },
           ],
         },
         {
           id: "heaps",
-          videoId: "t0Cq6tVNRBA",
+          videoId: "E2v9hBgG6gE",
           title: "Heaps & Priority Queues",
-          channel: "HackerRank · Gayle Laakmann McDowell",
-          duration: "~10 min",
+          channel: "Greg Hogg",
+          duration: "~30 min",
           level: "Intermediate",
           blurb:
             "A binary heap is a complete tree kept in an array where the min (or max) is always on top. It gives O(1) peek and O(log n) insert/extract — the engine inside every priority queue.",
@@ -489,7 +564,7 @@ window.ROADMAP = {
           ],
           resources: [
             { label: "VisuAlgo — Heap", url: "https://visualgo.net/en/heap" },
-            { label: "Binary heap walkthrough (Back To Back SWE)", url: "https://www.youtube.com/watch?v=g9YK6sftDi0" },
+            { label: "HackerRank — Heaps (Gayle Laakmann McDowell)", url: "https://www.youtube.com/watch?v=t0Cq6tVNRBA" },
           ],
           quiz: [
             {
@@ -539,7 +614,7 @@ window.ROADMAP = {
             "Prefix queries: 'all words starting with…'",
           ],
           resources: [
-            { label: "VisuAlgo — strings/trie demos", url: "https://visualgo.net/en/suffixtree" },
+            { label: "Trie Data Structure — Prefix Trees for Beginners", url: "https://www.youtube.com/watch?v=SivJ4VrVcuo" },
             { label: "Trie — overview & uses", url: "https://en.wikipedia.org/wiki/Trie" },
           ],
           quiz: [
@@ -567,20 +642,20 @@ window.ROADMAP = {
     },
 
     /* ===================================================================
-       PHASE 3 — Balanced & self-balancing trees
+       PHASE 5 — Balanced & self-balancing trees
        =================================================================== */
     {
-      id: "ds3",
-      title: "Phase 3 — Balanced & Self-Balancing Trees",
+      id: "ds5",
+      title: "Phase 5 — Balanced & Self-Balancing Trees",
       subtitle: "Guaranteeing O(log n): AVL, red-black, B-trees and skip lists — the structures inside databases and kernels.",
       icon: "🎄",
       courses: [
         {
           id: "avl",
-          videoId: "jDM6_TnYIqE",
+          videoId: "DB1HFCEdLxA",
           title: "AVL Trees",
-          channel: "Abdul Bari",
-          duration: "~17 min",
+          channel: "Michael Sambol",
+          duration: "~5 min",
           level: "Advanced",
           blurb:
             "The first self-balancing BST. By tracking each node's balance factor and rotating when it exceeds ±1, an AVL tree stays strictly height-balanced — guaranteeing O(log n) even against sorted inserts.",
@@ -601,8 +676,8 @@ window.ROADMAP = {
             "AVL vs. red-black: stricter balance, more rotations",
           ],
           resources: [
+            { label: "AVL trees — Insertions (Michael Sambol)", url: "https://www.youtube.com/watch?v=JPI-DPizQYk" },
             { label: "VisuAlgo — AVL Tree", url: "https://visualgo.net/en/bst" },
-            { label: "AVL tree — overview", url: "https://en.wikipedia.org/wiki/AVL_tree" },
           ],
           quiz: [
             {
@@ -782,23 +857,23 @@ window.ROADMAP = {
     },
 
     /* ===================================================================
-       PHASE 4 — Graphs & range queries
+       PHASE 6 — Graphs & range queries
        =================================================================== */
     {
-      id: "ds4",
-      title: "Phase 4 — Graphs & Range Queries",
+      id: "ds6",
+      title: "Phase 6 — Graphs & Range Queries",
       subtitle: "Model relationships (graphs, union-find) and answer interval questions fast (segment & Fenwick trees).",
       icon: "🕸️",
       courses: [
         {
           id: "graphs",
-          videoId: "09_LlHjoEiY",
-          title: "Graph Theory & Representations",
-          channel: "freeCodeCamp · William Fiset",
-          duration: "~6.5 hours",
+          videoId: "4jyESQDrpls",
+          title: "Graphs — Representations, BFS & DFS",
+          channel: "Greg Hogg",
+          duration: "~40 min",
           level: "Advanced",
           blurb:
-            "Nodes and edges — the most general structure, modeling anything from friendships to road networks. A Google engineer's full tour: representations, BFS/DFS, shortest paths, MST, topological sort and more.",
+            "Nodes and edges — the most general structure, modeling anything from friendships to road networks. Learn the representations (edge list, adjacency matrix, adjacency list) and the two traversals (BFS, DFS) that nearly every graph algorithm builds on.",
           complexity: [
             { label: "BFS / DFS", value: "O(V + E)" },
             { label: "Dijkstra (heap)", value: "O(E log V)" },
@@ -812,14 +887,14 @@ window.ROADMAP = {
             { sys: "Networks & infra", text: "Routing protocols, service meshes, and cloud dependency maps are all graph problems (connectivity, shortest path, cycles)." },
           ],
           learn: [
-            "Adjacency list vs. matrix — and the space/time trade-off",
+            "Edge list vs. adjacency matrix vs. adjacency list — the space/time trade-off",
             "BFS and DFS; detecting cycles and connected components",
             "Shortest paths (Dijkstra, Bellman-Ford) and MST (Prim, Kruskal)",
             "Topological sort for dependency ordering on DAGs",
           ],
           resources: [
+            { label: "Deep dive — Graph Theory full course (William Fiset / freeCodeCamp)", url: "https://www.youtube.com/watch?v=09_LlHjoEiY" },
             { label: "VisuAlgo — Graph traversal", url: "https://visualgo.net/en/dfsbfs" },
-            { label: "William Fiset — Algorithms (GitHub)", url: "https://github.com/williamfiset/Algorithms" },
           ],
           quiz: [
             {
@@ -999,11 +1074,11 @@ window.ROADMAP = {
     },
 
     /* ===================================================================
-       PHASE 5 — Data structures at scale (production systems)
+       PHASE 7 — Data structures at scale (production systems)
        =================================================================== */
     {
-      id: "ds5",
-      title: "Phase 5 — Data Structures at Scale",
+      id: "ds7",
+      title: "Phase 7 — Data Structures at Scale",
       subtitle: "The probabilistic & disk-oriented structures that make Cassandra, RocksDB, Git and blockchains work.",
       icon: "🏗️",
       courses: [

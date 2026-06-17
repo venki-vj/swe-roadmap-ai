@@ -64,16 +64,23 @@ by *Philipp Lackner*, *Karim Yaghmour* (author of O'Reilly's *Embedded Android*)
 ### 🗂️ Companion Data Structures roadmap (`ds.html`)
 
 A dedicated, progressive **data-structures** track — *basic → advanced* — where every
-structure is taught by the most-loved free video on the topic **and** mapped to exactly how
-real production systems use it. Five phases, 22 topics:
+structure is taught by a modern, highly-regarded free video **and** mapped to exactly how
+real production systems use it. Seven phases, 23 topics:
 
-| Phase | Focus | Structures |
+| Phase | Focus | Topics |
 |------|-------|-----------|
-| **1 — Foundations & Linear** | Cost + the core four | Big-O · Arrays/Strings · Linked Lists · Stacks · Queues |
-| **2 — Hashing, Trees & Heaps** | Fast lookup & hierarchy | Hash tables/maps/sets · Binary trees · BSTs · Heaps/priority queues · Tries |
-| **3 — Balanced Trees** | Guaranteed O(log n) | AVL · Red-Black · B/B+ trees · Skip lists |
-| **4 — Graphs & Range Queries** | Relationships & intervals | Graph theory · Union-Find · Segment trees · Fenwick trees |
-| **5 — Data Structures at Scale** | Production internals | Bloom filters · LSM-trees · Merkle trees/blockchains · Capstone (Fiset full course) |
+| **1 — Foundations** | The mental models | Big-O & complexity · Recursion & the call stack |
+| **2 — Linear Structures** | The core building blocks | Arrays/Strings · Linked Lists · Stacks & Queues |
+| **3 — Searching & Sorting** | Algorithms over structures | Binary Search · Sorting Algorithms |
+| **4 — Hashing, Trees & Heaps** | Fast lookup & hierarchy | Hash tables/maps/sets · Binary trees & BSTs · Heaps/priority queues · Tries |
+| **5 — Balanced Trees** | Guaranteed O(log n) | AVL · Red-Black · B/B+ trees · Skip lists |
+| **6 — Graphs & Range Queries** | Relationships & intervals | Graphs (BFS/DFS) · Union-Find · Segment trees · Fenwick trees |
+| **7 — Data Structures at Scale** | Production internals | Bloom filters · LSM-trees · Merkle trees/blockchains · Capstone (Fiset full course) |
+
+> The foundations and core structures are anchored on **Greg Hogg's 2024 "DSA Course in Python"**
+> for an up-to-date, end-to-end teaching path (Big-O is now taught directly — fixing the old
+> intro that didn't cover it), with **Recursion**, **Binary Search** and **Sorting** added for
+> complete coverage.
 
 Two DS-only fields drive a signature UI on this track (rendered by the shared `app.js`):
 
@@ -85,9 +92,9 @@ Two DS-only fields drive a signature UI on this track (rendered by the shared `a
 
 Real-world claims were grounded in a deep, multi-source, fact-checked research pass (primary
 sources: PostgreSQL, Apache Cassandra, RocksDB, Redis docs, cp-algorithms, MIT OCW). Taught by
-*William Fiset* (Google engineer / freeCodeCamp), *HackerRank* (Gayle Laakmann McDowell),
-*mycodeschool*, *Abdul Bari*, *Michael Sambol*, *Spanning Tree*, *Tushar Roy*, *ByteByteGo*,
-*Jenny's Lectures*, and *3Blue1Brown*. Every `videoId` is verified via YouTube's oEmbed endpoint.
+*Greg Hogg*, *Michael Sambol*, *William Fiset* (Google engineer / freeCodeCamp), *Spanning Tree*,
+*Tushar Roy*, *ByteByteGo*, *HackerRank* (Gayle Laakmann McDowell), and *3Blue1Brown*. Every
+`videoId` is verified via YouTube's oEmbed endpoint.
 
 ### 🧬 Companion AI/LLM roadmap (`ai.html`)
 
